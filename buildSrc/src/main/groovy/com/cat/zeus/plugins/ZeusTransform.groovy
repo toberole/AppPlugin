@@ -218,6 +218,8 @@ class ZeusTransform extends Transform {
     private void addCode(CtMethod method, CtClass ctClass) {
         if (!isNative(method) && !isEmpty(method)) {
             String name = method.getName()
+            // 如果指定了方法名 那么就只针对指定的方法做处理
+            if (!extraInfo.methodName.isEmpty() && !name.equalsIgnoreCase(extraInfo.methodName)) return
             method.addLocalVariable("startTime", CtClass.longType)
             method.addLocalVariable("endTime", CtClass.longType)
             method.insertBefore("startTime = System.currentTimeMillis();")
